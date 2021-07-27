@@ -117,7 +117,7 @@ namespace BasicCSharp
             var notChrisName = notChris?.Name;
 
             var expectedChrisName = "chris";
-            string expectedNotChrisName = null;
+            object expectedNotChrisName = null;
 
             Assert.Equal(expectedChrisName, chrisName);
             Assert.Equal(expectedNotChrisName, notChrisName);
