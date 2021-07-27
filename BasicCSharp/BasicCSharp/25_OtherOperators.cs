@@ -12,8 +12,8 @@ namespace BasicCSharp
             bool trueStatement = (1 + 1 == 2) ? true : false;
             string falseStatement = (1 + 1 == 3) ? "true" : "false";
 
-            var expectedTrueStatement = false;
-            var expectedFalseStatement = "true";
+            var expectedTrueStatement = true;
+            var expectedFalseStatement = "false";
 
             Assert.Equal(expectedTrueStatement, trueStatement);
             Assert.Equal(expectedFalseStatement, falseStatement);
@@ -25,8 +25,8 @@ namespace BasicCSharp
             bool trueStatement = true && true;
             bool falseStatement = true && false;
 
-            var expectedTrueStatement = false;
-            var expectedFalseStatement = true;
+            var expectedTrueStatement = true;
+            var expectedFalseStatement = false;
 
             Assert.Equal(expectedTrueStatement, trueStatement);
             Assert.Equal(expectedFalseStatement, falseStatement);
@@ -39,8 +39,8 @@ namespace BasicCSharp
             bool falseStatement = false || false;
 
             // change boolean values to 
-            var expectedTrueStatement = false;
-            var expectedFalseStatement = true;
+            var expectedTrueStatement = true;
+            var expectedFalseStatement = false;
 
             Assert.Equal(expectedTrueStatement, trueStatement);
             Assert.Equal(expectedFalseStatement, falseStatement);
@@ -52,15 +52,15 @@ namespace BasicCSharp
             Func<bool> throwException = () => { throw new NotImplementedException("should not be called"); };
 
             // change boolean values to avoid an exception being thrown
-            bool expectedAndResult = true && throwException();
-            bool expectedOrResult = false || throwException();
+            bool expectedAndResult = false && throwException();
+            bool expectedOrResult = true || throwException();
 
             Assert.False(expectedAndResult);
             Assert.True(expectedOrResult);
         }
 
         [Fact]
-        public void should_use_null_coalescing_operator_for_null_checks()
+        public void should_use_null_coalescing_operator_for_null_checks()       // int? 为可空类型  ??为右结合 a ?? b ?? c = a ?? (b ?? c)
         {
             int? emptyInt = null;
             int? nonNullInt = 13;
@@ -70,8 +70,8 @@ namespace BasicCSharp
             var secondCalculation = emptyInt ?? nonNullInt ?? someDefault;
 
             // change expected results to correct values
-            var expectedFirstResult = 1;
-            var expectedSecondResult = 1;
+            var expectedFirstResult = 42;
+            var expectedSecondResult = 13;
 
             Assert.Equal(expectedFirstResult, firstCalculation);
             Assert.Equal(expectedSecondResult, secondCalculation);
@@ -86,7 +86,7 @@ namespace BasicCSharp
             bool? notNullBool = true;
 
             // change order to avoid an exception being thrown
-            bool? expectedTrue = nullBool ?? throwException() ?? notNullBool;
+            bool? expectedTrue = nullBool ?? notNullBool ?? throwException();
 
             Assert.True(expectedTrue);
         }
@@ -97,10 +97,10 @@ namespace BasicCSharp
             string[] noPeople = null;
             string[] somePeople = { "chris", "jo", "kim" };
 
-            var somebody = somePeople?[0];
+            var somebody = somePeople?[0];                                      // 可以索引越界不报错返回null
             var nobody = noPeople?[1];
 
-            var expectedNobody = "jo";
+            string expectedNobody = null;
             var expectedSomebody = "chris";
 
             Assert.Equal(expectedSomebody, somebody);
@@ -117,7 +117,7 @@ namespace BasicCSharp
             var notChrisName = notChris?.Name;
 
             var expectedChrisName = "chris";
-            var expectedNotChrisName = "still chris";
+            string expectedNotChrisName = null;
 
             Assert.Equal(expectedChrisName, chrisName);
             Assert.Equal(expectedNotChrisName, notChrisName);
