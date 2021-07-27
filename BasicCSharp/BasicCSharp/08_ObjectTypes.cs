@@ -15,9 +15,9 @@ namespace BasicCSharp
             var valueTypeInstance = 2;
 
             // change the variable values for the following 3 lines to fix the test.
-            const bool isStringInstanceObject = false;
-            const bool isAnnonymousInstanceObject = false;
-            const bool isValueTypeInstanceObject = false;
+            const bool isStringInstanceObject = true;
+            const bool isAnnonymousInstanceObject = true;
+            const bool isValueTypeInstanceObject = true;
 
             Assert.Equal(
                 isStringInstanceObject,
@@ -40,9 +40,9 @@ namespace BasicCSharp
             object itemAtPosition2 = objectList[2];
 
             // change the variable values for the following 3 lines to fix the test.
-            Type expectedTypeForItemAtPosition0 = typeof(object);
-            Type expectedTypeForItemAtPosition1 = typeof(object);
-            Type expectedTypeForItemAtPosition2 = typeof(object);
+            Type expectedTypeForItemAtPosition0 = typeof(string);
+            Type expectedTypeForItemAtPosition1 = typeof(int);
+            Type expectedTypeForItemAtPosition2 = typeof(RefTypeClass);
 
             Assert.Equal(expectedTypeForItemAtPosition0, itemAtPosition0.GetType());
             Assert.Equal(expectedTypeForItemAtPosition1, itemAtPosition1.GetType());
@@ -50,16 +50,16 @@ namespace BasicCSharp
         }
 
         [Fact]
-        public void should_derived_from_value_type_for_value_type()
+        public void should_derived_from_value_type_for_value_type()             // 为什么都是值类型
         {
             int intObject = 1;
             DateTime dateTimeObject = DateTime.Now;
             var customValueTypeObject = new ValueTypeDemoClass();
 
             // change the variable values for the following 3 lines to fix the test.
-            const bool isIntObjectValueType = false;
-            const bool isDateTimeObjectValueType = false;
-            const bool isCustomValueTypeObjectValueType = false;
+            const bool isIntObjectValueType = true;
+            const bool isDateTimeObjectValueType = true;
+            const bool isCustomValueTypeObjectValueType = true;
 
             Assert.Equal(
                 isIntObjectValueType, 
@@ -78,7 +78,7 @@ namespace BasicCSharp
             var customValueTypeObject = new ValueTypeDemoClass();
 
             // change the variable value to fix the test.
-            const bool isValueTypeSealed = false;
+            const bool isValueTypeSealed = true;                                // why sealed？？？？？？？？？？？？？
 
             Assert.Equal(isValueTypeSealed, customValueTypeObject.GetType().IsSealed);
         }
@@ -86,7 +86,7 @@ namespace BasicCSharp
         [Fact]
         public void should_perform_real_copy_operation_for_value_type()
         {
-            var original = new ValueTypeDemoClass();
+            var original = new ValueTypeDemoClass();                            // 怎么是个值类型？？？？？？？？？？？？？
 
             ValueTypeDemoClass copy = original;
             bool isSameReference;
@@ -100,7 +100,7 @@ namespace BasicCSharp
             }
 
             // change the variable value to fix the test.
-            const bool expectedIsSameReference = true;
+            const bool expectedIsSameReference = false;
 
             Assert.Equal(expectedIsSameReference, isSameReference);
         }
@@ -112,9 +112,9 @@ namespace BasicCSharp
             var boxed = (object) intObject;
 
             // change the variable values for the following 3 lines to fix the test.
-            Type expectedType = typeof(object);
-            const bool isBoxedTypeSealed = false;
-            const bool isValueType = false;
+            Type expectedType = typeof(int);
+            const bool isBoxedTypeSealed = true;                                // 值类型都是 sealed的？？？？
+            const bool isValueType = true;
 
             Assert.Equal(expectedType, boxed.GetType());
             Assert.Equal(isBoxedTypeSealed, boxed.GetType().IsSealed);
@@ -131,7 +131,7 @@ namespace BasicCSharp
 
             try
             {
-                longObject = (long) boxed;
+                longObject = (long) boxed;                                      // 这个不算explicity cast吗
             }
             catch (Exception error)
             {
@@ -139,9 +139,9 @@ namespace BasicCSharp
             }
 
             // change the variable values for the following 3 lines to fix the test.
-            const bool isExceptionOccurred = false;
-            Type expectedExceptionType = typeof(Exception);
-            const long expectedLongObjectValue = 1L;
+            const bool isExceptionOccurred = true;
+            Type expectedExceptionType = typeof(InvalidCastException);
+            const long expectedLongObjectValue = 0;
 
             Assert.Equal(isExceptionOccurred, (errorWhenCasting != null));
             Assert.Equal(expectedExceptionType, errorWhenCasting.GetType());
@@ -157,7 +157,7 @@ namespace BasicCSharp
             Type type = castedToBaseClass.GetType();
 
             // change the variable value to fix the test.
-            Type expectedType = typeof(InheritMemberAccessDemoBaseClass);
+            Type expectedType = typeof(InheritMemberAccessDemoClass);
 
             Assert.Equal(expectedType, type);
         }
@@ -168,7 +168,7 @@ namespace BasicCSharp
             var objectWithoutToStringOverride = new RefTypeClass(2);
 
             // change the variable value to fix the test.
-            const string expectedToStringResult = "";
+            const string expectedToStringResult = "BasicCSharp.Common.RefTypeClass";
 
             string toStringResult = objectWithoutToStringOverride.ToString();
 
