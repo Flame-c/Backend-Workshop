@@ -34,7 +34,7 @@ namespace BasicCSharp
         }
 
         [Fact]
-        public void should_not_rely_on_order_in_hashset()                       // hash set 不稳定，但这是什么意思
+        public void should_not_rely_on_order_in_hashset()                       // hash set 不稳定
         {
             ISet<int> mySet = new HashSet<int>() { 1, 2, 3, 4, 5 };
 

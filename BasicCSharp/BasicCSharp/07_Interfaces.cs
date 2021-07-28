@@ -36,7 +36,7 @@ namespace BasicCSharp
                 new[] {typeof(string)});
 
             // change the variable value to fix the test.
-            const bool expectedHasWriteMethod = false;                          // 继承自接口，但🈚️这个Write方法 ？？？？？？？？？        
+            const bool expectedHasWriteMethod = false;                          // 继承自接口，但🈚️这个Write方法 ？？？？？？？？？        public
 
             Assert.Equal(expectedHasWriteMethod, hasWriteMethod);
         }

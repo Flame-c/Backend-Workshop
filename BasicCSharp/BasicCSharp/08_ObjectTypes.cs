@@ -54,7 +54,7 @@ namespace BasicCSharp
         {
             int intObject = 1;
             DateTime dateTimeObject = DateTime.Now;
-            var customValueTypeObject = new ValueTypeDemoClass();
+            var customValueTypeObject = new ValueTypeDemoClass2();
 
             // change the variable values for the following 3 lines to fix the test.
             const bool isIntObjectValueType = true;
